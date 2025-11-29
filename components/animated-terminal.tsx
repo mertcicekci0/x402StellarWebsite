@@ -7,18 +7,31 @@ interface AnimatedTerminalProps {
 }
 
 export function AnimatedTerminal({ onComplete }: AnimatedTerminalProps) {
-  const [step, setStep] = useState<"typing" | "installing" | "ascii" | "complete">("typing")
+  const [step, setStep] = useState<"typing" | "installing" | "complete">("typing")
   const [commandText, setCommandText] = useState("")
-  const [asciiText, setAsciiText] = useState("")
   const [showCursor, setShowCursor] = useState(true)
 
   const fullCommand = "npm install @402-stellar"
-  const asciiArt = `██╗  ██╗ ██████╗ ██████╗ ███████╗████████╗███████╗██╗      █████╗ ██████╗ 
-╚██╗██╔╝██╔═══██╗██╔══██╗██╔════╝╚══██╔══╝██╔════╝██║     ██╔══██╗██╔══██╗
- ╚███╔╝ ██║   ██║██████╔╝█████╗     ██║   ███████╗██║     ███████║██████╔╝
- ██╔██╗ ██║   ██║██╔══██╗██╔══╝     ██║   ╚════██║██║     ██╔══██║██╔══██╗
-██╔╝ ██╗╚██████╔╝██║  ██║███████╗   ██║   ███████║███████╗██║  ██║██║  ██║
-╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝`
+
+  // Modern, minimal npm install output
+  const npmOutput = `npm install @402-stellar
+
+  ╭─ Installing dependencies ────────────────────────╮
+  │                                                   │
+  │  ✓ @stellar/sdk@11.2.0                          │
+  │  ✓ @stellar/base@11.2.0                         │
+  │  ✓ axios@1.6.0                                  │
+  │  ✓ crypto-js@4.2.0                              │
+  │                                                   │
+  │  added 127 packages in 2s                        │
+  │                                                   │
+  ╰───────────────────────────────────────────────────╯
+
+  ✨ @402-stellar installed successfully!
+
+  Start building internet-native payments
+  with Stellar blockchain integration.
+`
 
   useEffect(() => {
     // Step 1: Type command
@@ -31,6 +44,7 @@ export function AnimatedTerminal({ onComplete }: AnimatedTerminalProps) {
         } else {
           clearInterval(typingInterval)
           setTimeout(() => {
+            setShowCursor(false)
             setStep("installing")
           }, 500)
         }
@@ -42,50 +56,17 @@ export function AnimatedTerminal({ onComplete }: AnimatedTerminalProps) {
     // Step 2: Installing
     if (step === "installing") {
       const installingTimer = setTimeout(() => {
-        setStep("ascii")
-      }, 1500)
+        setStep("complete")
+        onComplete?.()
+      }, 2500)
 
       return () => clearTimeout(installingTimer)
     }
-
-    // Step 3: Type ASCII art
-    if (step === "ascii") {
-      const lines = asciiArt.split("\n")
-      let currentLine = 0
-      let currentChar = 0
-      let displayText = ""
-
-      const asciiInterval = setInterval(() => {
-        if (currentLine < lines.length) {
-          if (currentChar < lines[currentLine].length) {
-            displayText += lines[currentLine][currentChar]
-            currentChar++
-            setAsciiText(displayText + (currentLine < lines.length - 1 ? "\n" : ""))
-          } else {
-            displayText += "\n"
-            currentLine++
-            currentChar = 0
-            if (currentLine < lines.length) {
-              setAsciiText(displayText)
-            }
-          }
-        } else {
-          clearInterval(asciiInterval)
-          setTimeout(() => {
-            setStep("complete")
-            setShowCursor(false)
-            onComplete?.()
-          }, 500)
-        }
-      }, 15)
-
-      return () => clearInterval(asciiInterval)
-    }
-  }, [step, fullCommand, asciiArt, onComplete])
+  }, [step, fullCommand, onComplete])
 
   // Cursor blink
   useEffect(() => {
-    if (step === "complete") return
+    if (step === "complete" || step === "installing") return
 
     const cursorInterval = setInterval(() => {
       setShowCursor((prev) => !prev)
@@ -95,7 +76,9 @@ export function AnimatedTerminal({ onComplete }: AnimatedTerminalProps) {
   }, [step])
 
   return (
-    <div className="bg-black rounded-lg border border-gray-800 overflow-hidden font-mono">
+    <div className={`bg-black rounded-lg border border-gray-800 overflow-hidden font-mono shadow-2xl transition-all duration-700 ease-in-out ${
+      step === "complete" ? "scale-[1.01]" : "scale-100"
+    }`}>
       {/* Terminal header */}
       <div className="flex items-center gap-2 px-4 py-2.5 bg-[#1a1a1a] border-b border-gray-800">
         <div className="flex gap-1.5">
@@ -107,7 +90,9 @@ export function AnimatedTerminal({ onComplete }: AnimatedTerminalProps) {
       </div>
 
       {/* Terminal content */}
-      <div className="p-6 text-sm">
+      <div className={`p-6 text-sm transition-all duration-700 ease-in-out ${
+        step === "complete" ? "min-h-[450px]" : step === "installing" ? "min-h-[80px]" : "min-h-[60px]"
+      }`}>
         {/* Command line */}
         <div className="flex items-center gap-2 mb-3">
           <span className="text-[#d4a853]">$</span>
@@ -119,36 +104,61 @@ export function AnimatedTerminal({ onComplete }: AnimatedTerminalProps) {
 
         {/* Installing message */}
         {step === "installing" && (
-          <div className="text-gray-500 text-xs mb-3">
+          <div className="text-gray-500 text-xs mb-3 animate-fade-in">
             <span className="inline-block animate-pulse">Installing packages...</span>
           </div>
         )}
 
-        {/* ASCII Art */}
-        {step === "ascii" && (
-          <div className="mt-4 mb-2">
-            <pre className="text-[#d4a853] font-mono text-[9px] sm:text-[10px] leading-tight overflow-x-auto">
-              {asciiText}
-              {showCursor && <span className="inline-block w-1 h-3 bg-[#d4a853] ml-0.5"></span>}
+        {/* npm install output - appears directly after installing with smooth animation */}
+        {step === "complete" && (
+          <div className="text-gray-300 text-xs font-mono leading-relaxed animate-fade-in opacity-0" style={{ animation: 'fade-in 0.8s ease-out 0.2s forwards' }}>
+            <pre className="whitespace-pre-wrap">
+              <span className="text-gray-500">npm install @402-stellar</span>
+              <br /><br />
+              <span className="text-gray-400">  ╭─ Installing dependencies ────────────────────────╮</span>
+              <br />
+              <span className="text-gray-400">  │                                                   │</span>
+              <br />
+              <span className="text-gray-400">  │ </span>
+              <span className="text-green-400">✓</span>
+              <span className="text-gray-300"> @stellar/sdk@11.2.0</span>
+              <span className="text-gray-400">                          │</span>
+              <br />
+              <span className="text-gray-400">  │ </span>
+              <span className="text-green-400">✓</span>
+              <span className="text-gray-300"> @stellar/base@11.2.0</span>
+              <span className="text-gray-400">                         │</span>
+              <br />
+              <span className="text-gray-400">  │ </span>
+              <span className="text-green-400">✓</span>
+              <span className="text-gray-300"> axios@1.6.0</span>
+              <span className="text-gray-400">                                  │</span>
+              <br />
+              <span className="text-gray-400">  │ </span>
+              <span className="text-green-400">✓</span>
+              <span className="text-gray-300"> crypto-js@4.2.0</span>
+              <span className="text-gray-400">                              │</span>
+              <br />
+              <span className="text-gray-400">  │                                                   │</span>
+              <br />
+              <span className="text-gray-400">  │ </span>
+              <span className="text-gray-500">added 127 packages in 2s</span>
+              <span className="text-gray-400">                        │</span>
+              <br />
+              <span className="text-gray-400">  │                                                   │</span>
+              <br />
+              <span className="text-gray-400">  ╰───────────────────────────────────────────────────╯</span>
+              <br /><br />
+              <span className="text-[#d4a853]">  ✨</span>
+              <span className="text-gray-300"> @402-stellar installed successfully!</span>
+              <br /><br />
+              <span className="text-gray-400">  Start building internet-native payments</span>
+              <br />
+              <span className="text-gray-400">  with Stellar blockchain integration.</span>
             </pre>
           </div>
-        )}
-
-        {/* Complete message */}
-        {step === "complete" && (
-          <>
-            <div className="mt-4 mb-2">
-              <pre className="text-[#d4a853] font-mono text-[9px] sm:text-[10px] leading-tight overflow-x-auto">
-                {asciiArt}
-              </pre>
-            </div>
-            <div className="text-green-400 text-xs mt-2">
-              ✓ Installed @402-stellar successfully
-            </div>
-          </>
         )}
       </div>
     </div>
   )
 }
-
