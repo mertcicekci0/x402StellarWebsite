@@ -17,25 +17,24 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-black/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center group">
-            <div className="relative h-10 w-10 flex items-center justify-center transform transition-transform duration-300 group-hover:scale-105">
+            <div className="relative h-8 w-8 flex items-center justify-center transform transition-transform duration-300 group-hover:scale-105">
               <div className="relative w-full h-full">
                 <Image
                   src="/logo.png"
                   alt="@402-stellar"
                   fill
-                  sizes="40px"
+                  sizes="32px"
                   className="object-contain"
                   priority
                 />
               </div>
-              {/* Subtle glow on hover */}
-              <div className="absolute inset-0 blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 bg-stellar-gold/50 -z-10 rounded-full" />
             </div>
+            <span className="ml-2 text-sm font-medium text-black">@402-stellar</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -44,7 +43,7 @@ export function Header() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm text-black/60 hover:text-black transition-colors"
               >
                 {link.name}
               </Link>
@@ -54,16 +53,16 @@ export function Header() {
           {/* Right side actions */}
           <div className="hidden md:flex items-center gap-4">
             <Link
-              href="#docs"
-              className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              href="/docs"
+              className="flex items-center gap-1 text-sm text-black/60 hover:text-black transition-colors"
             >
               <ExternalLink className="h-4 w-4" />
-              Dev Docs
+              Docs
             </Link>
-            <Button variant="ghost" size="icon" className="text-muted-foreground">
-              <Search className="h-5 w-5" />
+            <Button variant="ghost" size="icon" className="text-black/60 hover:text-black">
+              <Search className="h-4 w-4" />
             </Button>
-            <Button className="bg-stellar-navy hover:bg-stellar-navy/90 text-white">Launch Dashboard</Button>
+            <Button className="bg-black hover:bg-black/90 text-white rounded-none">Get Started</Button>
           </div>
 
           {/* Mobile menu button */}
@@ -75,19 +74,19 @@ export function Header() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-border">
+        <div className="md:hidden bg-white border-b border-black/5">
           <div className="px-4 py-4 space-y-4">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="block text-sm text-muted-foreground hover:text-foreground"
+                className="block text-sm text-black/60 hover:text-black"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <Button className="w-full bg-stellar-navy hover:bg-stellar-navy/90 text-white">Launch Dashboard</Button>
+            <Button className="w-full bg-black hover:bg-black/90 text-white rounded-none">Get Started</Button>
           </div>
         </div>
       )}
