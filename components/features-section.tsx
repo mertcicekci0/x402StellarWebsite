@@ -198,7 +198,7 @@ export function FeaturesSection() {
           }`}
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-black">
-            Why @402-stellar?
+            Why x402 Stellar?
           </h2>
         </div>
 
