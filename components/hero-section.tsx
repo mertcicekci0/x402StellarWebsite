@@ -1,31 +1,35 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { PaymentDialog } from "@/components/payment-dialog"
 
 export function HeroSection() {
   const [paymentDialogOpen, setPaymentDialogOpen] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   return (
     <section className="relative min-h-screen bg-white overflow-visible">
-      {/* Video Background - Right Side, Vertically Centered, Masked, Huge */}
-      <div className="absolute top-1/2 right-[-35%] transform -translate-y-1/2 w-[100vw] max-w-none h-[150vh] z-10 pointer-events-none">
+      {/* Video Background - Right Side, Vertically Centered, Masked, Huge, Interactive */}
+      <div className="absolute top-1/2 right-[-40%] transform -translate-y-1/2 w-[120vw] max-w-none h-[150vh] z-10">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-contain mix-blend-multiply [mask-image:radial-gradient(circle,black_50%,transparent_70%)]"
+          className="w-full h-full object-contain mix-blend-multiply [mask-image:radial-gradient(circle,black_40%,transparent_65%)] transition-all duration-700 ease-out hover:scale-105 cursor-pointer"
+          onMouseEnter={() => videoRef.current?.pause()}
+          onMouseLeave={() => videoRef.current?.play()}
         >
           <source src="/landingvideo.mp4" type="video/mp4" />
         </video>
       </div>
 
       {/* Content Container */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-32">
-        <div className="max-w-4xl text-left min-h-[80vh] flex flex-col justify-center">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-32 pointer-events-none">
+        <div className="max-w-4xl text-left min-h-[80vh] flex flex-col justify-center pointer-events-auto">
           {/* Text Content */}
           <div className="space-y-8">
             {/* Badge */}
@@ -54,7 +58,7 @@ export function HeroSection() {
                 onClick={() => setPaymentDialogOpen(true)}
                 className="bg-black hover:bg-black/90 text-white font-medium px-8 h-12 rounded-none"
               >
-                Start Building
+                Try it Out
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button
