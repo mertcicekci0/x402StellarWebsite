@@ -192,15 +192,15 @@ export function UseCasesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div
           ref={titleRef}
-          className={`text-center mb-6 sm:mb-8 transition-all duration-700 ${
+          className={`text-center mb-20 transition-all duration-700 ${
             titleVisible
-              ? "opacity-100 translate-y-0 scale-100"
-              : "opacity-0 translate-y-8 scale-95"
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-8"
           }`}
         >
-          <h2 className="text-3xl sm:text-4xl font-semibold mb-4 text-balance text-black">Real Use Case Ideas</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto text-pretty">
-            See how developers are using @402-stellar to build the future of web monetization
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-black mb-6">Real Use Case Ideas</h2>
+          <p className="text-lg sm:text-xl font-light text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            See how developers are using <span className="text-black font-normal">@402-stellar</span> to build the future of web monetization
           </p>
         </div>
 
