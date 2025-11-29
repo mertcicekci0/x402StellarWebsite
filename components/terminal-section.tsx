@@ -64,3 +64,4 @@ export function TerminalSection() {
     </section>
   )
 }
+ 
