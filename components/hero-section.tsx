@@ -2,120 +2,116 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Copy, Check, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { PaymentDialog } from "@/components/payment-dialog"
+import { DitherArtCanvas } from "@/components/dither-art-canvas"
+import { AnimatedTerminal } from "@/components/animated-terminal"
 
 export function HeroSection() {
-  const [copied, setCopied] = useState(false)
   const [paymentDialogOpen, setPaymentDialogOpen] = useState(false)
-  const installCommand = "npm install @402-stellar"
-
-  const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(installCommand)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+  const [terminalComplete, setTerminalComplete] = useState(false)
 
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden">
-      {/* Subtle golden gradient background similar to Stellar */}
-      <div className="absolute inset-0 bg-gradient-to-b from-amber-50/80 via-amber-100/40 to-white" />
+    <section className="relative min-h-screen overflow-hidden bg-white">
+      {/* Dither Art Background - Interactive */}
+      <div className="absolute inset-0 w-full h-full">
+        <DitherArtCanvas className="w-full h-full" />
+      </div>
 
-      {/* Subtle dot pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(26, 31, 54, 0.15) 1px, transparent 0)`,
-          backgroundSize: "24px 24px",
-        }}
-      />
+      {/* Content Container */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-32">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[80vh]">
+          {/* Left Column - Text Content */}
+          <div className="space-y-8">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/5 border border-black/10">
+              <span className="text-xs font-medium text-black">Built on Stellar</span>
+              <span className="h-1 w-1 rounded-full bg-[#d4a853]" />
+              <span className="text-xs text-gray-600">402 Protocol</span>
+            </div>
 
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-stellar-navy/5 border border-stellar-navy/10 mb-12">
-          <span className="text-xs font-medium text-stellar-navy">Built on Stellar</span>
-          <span className="h-1 w-1 rounded-full bg-stellar-gold" />
-          <span className="text-xs text-muted-foreground">402 Protocol</span>
-        </div>
-
-        {/* Premium Text Logo */}
-        <div className="relative mb-8 flex justify-center">
-          <div className="relative group">
-            {/* Glow effect behind text */}
-            <div className="absolute inset-0 blur-3xl opacity-20 group-hover:opacity-30 transition-opacity duration-500 bg-gradient-to-r from-stellar-gold via-stellar-cyan to-stellar-gold" />
-            
-            {/* Premium text with effects */}
-            <h1 
-              className="relative font-space-grotesk text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-stellar-navy select-none transform transition-all duration-500 group-hover:scale-[1.02]"
-              style={{
-                letterSpacing: '-0.03em',
-                lineHeight: '1.1',
-                textShadow: '0 2px 20px rgba(26, 31, 54, 0.08), 0 4px 40px rgba(212, 168, 83, 0.12), 0 8px 60px rgba(26, 31, 54, 0.05)',
-              }}
-            >
-              <span className="relative inline-block">
-                @402-stellar
-              </span>
-              
-              {/* Subtle gradient overlay on hover */}
-              <span 
-                className="absolute inset-0 bg-gradient-to-r from-stellar-gold/30 via-stellar-cyan/20 to-stellar-gold/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                style={{
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  letterSpacing: '-0.03em',
-                }}
-              >
-                @402-stellar
-              </span>
+            {/* Main Headline - Base.org style */}
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-black leading-tight tracking-tight">
+              <span className="block">An open protocol</span>
+              <span className="block">for internet-native</span>
+              <span className="block">payments</span>
             </h1>
+
+            {/* Subheadline */}
+            <p className="text-lg sm:text-xl text-gray-600 max-w-xl leading-relaxed">
+              @402-stellar is built to empower builders, creators, and people everywhere to build apps, grow businesses, create what they love, and earn onchain.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-start gap-4 pt-4">
+              <Button
+                size="lg"
+                onClick={() => setPaymentDialogOpen(true)}
+                className="bg-black hover:bg-black/90 text-white font-medium px-8 h-12 rounded-none"
+              >
+                Start Building
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-black/20 text-black hover:bg-black/5 px-8 h-12 rounded-none bg-transparent"
+                asChild
+              >
+                <a href="/docs">Read the Docs</a>
+              </Button>
+            </div>
+          </div>
+
+          {/* Right Column - Terminal */}
+          <div className="flex items-center justify-center lg:justify-end">
+            <div className="w-full max-w-2xl">
+              <AnimatedTerminal onComplete={() => setTerminalComplete(true)} />
+            </div>
           </div>
         </div>
 
-        {/* Subheadline */}
-        <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 text-pretty">
-          An open protocol for internet-native payments on Stellar ecosystem
-        </p>
-
-        {/* Install command block */}
-        <div className="inline-flex items-center gap-3 px-6 py-4 rounded-xl bg-stellar-navy text-white font-mono text-sm sm:text-base mb-8 shadow-lg">
-          <span className="text-stellar-gold">$</span>
-          <code>{installCommand}</code>
-          <button
-            onClick={copyToClipboard}
-            className="ml-2 p-2 rounded-lg hover:bg-white/10 transition-colors"
-            aria-label="Copy install command"
-          >
-            {copied ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4 text-white/70" />}
-          </button>
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button
-            size="lg"
-            onClick={() => setPaymentDialogOpen(true)}
-            className="bg-stellar-gold hover:bg-stellar-gold/90 text-stellar-navy font-semibold px-8 h-12"
-          >
-            Try It Out
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="border-stellar-navy/20 text-stellar-navy hover:bg-stellar-navy/5 px-8 h-12 bg-transparent"
-            asChild
-          >
-            <a href="/docs">Read the Docs</a>
-          </Button>
-        </div>
+        {/* Bottom Section - Feature Cards (Base.org style) */}
+        {terminalComplete && (
+          <div className="mt-32 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-in fade-in duration-1000">
+            {[
+              {
+                title: "Protocol",
+                description: "Open standard for payments",
+                color: "gold",
+              },
+              {
+                title: "Stellar",
+                description: "Built on Stellar network",
+                color: "gray",
+              },
+              {
+                title: "Payments",
+                description: "Internet-native transactions",
+                color: "white",
+              },
+              {
+                title: "Build",
+                description: "Developer-first tools",
+                color: "gold",
+              },
+            ].map((feature, index) => (
+              <div
+                key={index}
+                className="p-6 border border-black/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 transition-all duration-300"
+              >
+                <div className="text-2xl font-bold text-black mb-2">{feature.title}</div>
+                <div className="text-sm text-gray-600">{feature.description}</div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Payment Dialog */}
-      <PaymentDialog 
-        isOpen={paymentDialogOpen} 
-        onClose={() => setPaymentDialogOpen(false)} 
+      <PaymentDialog
+        isOpen={paymentDialogOpen}
+        onClose={() => setPaymentDialogOpen(false)}
       />
     </section>
   )
