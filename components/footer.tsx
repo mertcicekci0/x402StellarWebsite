@@ -27,7 +27,7 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer id="community" className="bg-stellar-navy text-white py-16">
+    <footer id="community" className="bg-white text-black py-16 border-t border-black/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           {/* Brand */}
@@ -36,7 +36,7 @@ export function Footer() {
               <StellarLogoFooter className="h-8 w-8" />
               <span className="font-semibold">@402-stellar</span>
             </div>
-            <p className="text-sm text-white/60 leading-relaxed">Access-as-an-Asset on the Stellar Network</p>
+            <p className="text-sm text-gray-600 leading-relaxed">Access-as-an-Asset on the Stellar Network</p>
           </div>
 
           {/* Links */}
@@ -45,7 +45,7 @@ export function Footer() {
             <ul className="space-y-2">
               {footerLinks.product.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-white/60 hover:text-white transition-colors">
+                  <Link href={link.href} className="text-sm text-gray-600 hover:text-black transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -58,7 +58,7 @@ export function Footer() {
             <ul className="space-y-2">
               {footerLinks.developers.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-white/60 hover:text-white transition-colors">
+                  <Link href={link.href} className="text-sm text-gray-600 hover:text-black transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -71,7 +71,7 @@ export function Footer() {
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-white/60 hover:text-white transition-colors">
+                  <Link href={link.href} className="text-sm text-gray-600 hover:text-black transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -84,7 +84,7 @@ export function Footer() {
             <ul className="space-y-2">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-white/60 hover:text-white transition-colors">
+                  <Link href={link.href} className="text-sm text-gray-600 hover:text-black transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -93,9 +93,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-white/50">© {new Date().getFullYear()} @402-stellar. All rights reserved.</p>
-          <p className="text-sm text-white/50">Built on the Stellar Network</p>
+        <div className="pt-8 border-t border-black/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-gray-500">© {new Date().getFullYear()} @402-stellar. All rights reserved.</p>
+          <p className="text-sm text-gray-500">Built on the Stellar Network</p>
         </div>
       </div>
     </footer>
