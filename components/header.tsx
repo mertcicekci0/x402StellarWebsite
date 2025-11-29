@@ -3,90 +3,100 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Menu, X, Search, ExternalLink } from "lucide-react"
+import { Menu, X, Github } from "lucide-react"
 
 const navLinks = [
-  { name: "About", href: "#about" },
-  { name: "Real Use Cases", href: "#use-cases" },
-  { name: "Start Building", href: "#features" },
-  { name: "Community", href: "#community" },
+  { name: "Home", href: "/", active: true },
+  { name: "About", href: "#about", active: false },
+  { name: "Use Cases", href: "#use-cases", active: false },
+  { name: "Community", href: "#community", active: false },
 ]
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-black/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[90%] md:max-w-3xl">
+      <div className="bg-white/80 backdrop-blur-xl rounded-full border border-black shadow-[0_8px_30px_rgb(0,0,0,0.04)] px-6 py-3">
+        <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center group">
-            <div className="relative h-8 w-8 flex items-center justify-center transform transition-transform duration-300 group-hover:scale-105">
-              <div className="relative w-full h-full">
-                <Image
-                  src="/logo.png"
-                  alt="@402-stellar"
-                  fill
-                  sizes="32px"
-                  className="object-contain"
-                  priority
-                />
-              </div>
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative w-32 h-12">
+              <Image
+                src="/logo.png"
+                alt="@402-stellar"
+                fill
+                className="object-contain scale-125"
+              />
             </div>
-            <span className="ml-2 text-sm font-medium text-black">@402-stellar</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-1 bg-black/5 rounded-full p-1 border border-black/5">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm text-black/60 hover:text-black transition-colors"
+                className={`px-5 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                  link.active
+                    ? "text-[#d4a853] bg-[#d4a853]/10"
+                    : "text-gray-600 hover:text-black hover:bg-black/5"
+                }`}
               >
                 {link.name}
               </Link>
             ))}
           </nav>
 
-          {/* Right side actions */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Right side - GitHub */}
+          <div className="hidden md:flex items-center">
             <Link
-              href="/docs"
-              className="flex items-center gap-1 text-sm text-black/60 hover:text-black transition-colors"
+              href="https://github.com/mertkaradayi/stellar-x402-facilitator"
+              target="_blank"
+              className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-black transition-colors group"
             >
-              <ExternalLink className="h-4 w-4" />
-              Docs
+              <Github className="w-5 h-5 transition-transform group-hover:scale-110" />
+              <span>GitHub</span>
             </Link>
-            <Button variant="ghost" size="icon" className="text-black/60 hover:text-black">
-              <Search className="h-4 w-4" />
-            </Button>
-            <Button className="bg-black hover:bg-black/90 text-white rounded-none">Get Started</Button>
           </div>
 
           {/* Mobile menu button */}
-          <button className="md:hidden p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <button 
+            className="md:hidden p-1 text-black hover:bg-black/5 rounded-full transition-colors" 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu (Floating below) */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-black/5">
-          <div className="px-4 py-4 space-y-4">
+        <div className="absolute top-full left-0 right-0 mt-3 px-2">
+          <div className="bg-white/90 backdrop-blur-xl rounded-3xl border border-black/5 p-4 space-y-2 shadow-2xl transform origin-top animate-in fade-in slide-in-from-top-5 duration-200">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="block text-sm text-black/60 hover:text-black"
+                className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                  link.active
+                    ? "bg-red-600 text-white shadow-lg shadow-red-900/20"
+                    : "text-gray-600 hover:text-black hover:bg-black/5"
+                }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <Button className="w-full bg-black hover:bg-black/90 text-white rounded-none">Get Started</Button>
+            <div className="pt-3 border-t border-black/5 mt-2">
+              <Link
+                href="https://github.com"
+                className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:text-black hover:bg-black/5 rounded-xl transition-colors"
+              >
+                <Github className="w-5 h-5" />
+                GitHub Repository
+              </Link>
+            </div>
           </div>
         </div>
       )}
