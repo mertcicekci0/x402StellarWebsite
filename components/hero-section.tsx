@@ -4,24 +4,29 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { PaymentDialog } from "@/components/payment-dialog"
-import { DitherArtCanvas } from "@/components/dither-art-canvas"
-import { AnimatedTerminal } from "@/components/animated-terminal"
 
 export function HeroSection() {
   const [paymentDialogOpen, setPaymentDialogOpen] = useState(false)
-  const [terminalComplete, setTerminalComplete] = useState(false)
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-white">
-      {/* Dither Art Background - Interactive */}
-      <div className="absolute inset-0 w-full h-full">
-        <DitherArtCanvas className="w-full h-full" />
+    <section className="relative min-h-screen bg-white overflow-visible">
+      {/* Video Background - Centered, Bottom Cropped, Masked */}
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-[40%] w-full max-w-4xl h-[90vh] z-10 pointer-events-none">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-contain mix-blend-multiply [mask-image:radial-gradient(circle,black_50%,transparent_70%)]"
+        >
+          <source src="/landingvideo.mp4" type="video/mp4" />
+        </video>
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-32">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[80vh]">
-          {/* Left Column - Text Content */}
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-32">
+        <div className="max-w-4xl text-left min-h-[80vh] flex flex-col justify-center">
+          {/* Text Content */}
           <div className="space-y-8">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/5 border border-black/10">
@@ -62,50 +67,7 @@ export function HeroSection() {
               </Button>
             </div>
           </div>
-
-          {/* Right Column - Terminal */}
-          <div className="flex items-center justify-center lg:justify-end">
-            <div className="w-full max-w-2xl">
-              <AnimatedTerminal onComplete={() => setTerminalComplete(true)} />
-            </div>
-          </div>
         </div>
-
-        {/* Bottom Section - Feature Cards (Base.org style) */}
-        {terminalComplete && (
-          <div className="mt-32 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-in fade-in duration-1000">
-            {[
-              {
-                title: "Protocol",
-                description: "Open standard for payments",
-                color: "gold",
-              },
-              {
-                title: "Stellar",
-                description: "Built on Stellar network",
-                color: "gray",
-              },
-              {
-                title: "Payments",
-                description: "Internet-native transactions",
-                color: "white",
-              },
-              {
-                title: "Build",
-                description: "Developer-first tools",
-                color: "gold",
-              },
-            ].map((feature, index) => (
-              <div
-                key={index}
-                className="p-6 border border-black/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 transition-all duration-300"
-              >
-                <div className="text-2xl font-bold text-black mb-2">{feature.title}</div>
-                <div className="text-sm text-gray-600">{feature.description}</div>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
 
       {/* Payment Dialog */}
