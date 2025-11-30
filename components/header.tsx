@@ -51,7 +51,7 @@ export function Header() {
           {/* Right side - GitHub */}
           <div className="hidden md:flex items-center">
             <Link
-              href="https://github.com/mertkaradayi/stellar-x402-facilitator"
+              href="https://github.com/mertkaradayi/stellar-x402"
               target="_blank"
               className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-black transition-colors group"
             >
@@ -90,7 +90,8 @@ export function Header() {
             ))}
             <div className="pt-3 border-t border-black/5 mt-2">
               <Link
-                href="https://github.com"
+                href="https://github.com/mertkaradayi/stellar-x402"
+                target="_blank"
                 className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:text-black hover:bg-black/5 rounded-xl transition-colors"
               >
                 <Github className="w-5 h-5" />
