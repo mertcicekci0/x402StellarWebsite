@@ -26,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased ${geistMono.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className="overflow-x-hidden">
+      <body className={`font-sans antialiased ${geistMono.variable} ${spaceGrotesk.variable} overflow-x-hidden w-full`}>
         {children}
         <Analytics />
       </body>

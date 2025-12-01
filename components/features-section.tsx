@@ -57,7 +57,7 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
   return (
     <div
       ref={cardRef}
-      className={`group relative p-12 sm:p-14 rounded-2xl bg-white border border-black/10 hover:border-black/20 transition-all duration-500 overflow-hidden ${
+      className={`group relative p-8 sm:p-14 rounded-2xl bg-white border border-black/10 hover:border-black/20 transition-all duration-500 overflow-hidden ${
         isVisible
           ? "opacity-100 translate-y-0"
           : "opacity-0 translate-y-12"
