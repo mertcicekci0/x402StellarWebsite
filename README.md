@@ -23,7 +23,7 @@ The x402 protocol turns the dormant HTTP 402 Payment Required status code into a
 | Repository | Description | Link |
 |------------|-------------|------|
 | **x402 Protocol** | The core protocol implementation, SDKs, and Facilitator | [mertkaradayi/stellar-x402](https://github.com/mertkaradayi/stellar-x402) |
-| **x402 Portal** | This website's source code (Next.js frontend) | [mertcicekci0/stellar-x402-portal](https://github.com/mertcicekci0/stellar-x402-portal) |
+| **x402 Portal** | This portal's and documentation source code | [mertcicekci0/stellar-x402-portal](https://github.com/mertcicekci0/stellar-x402-portal) |
 
 ## 🛠 Tech Stack
 
