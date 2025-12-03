@@ -26,6 +26,7 @@ export function HeroSection() {
       </div>
 
       {/* Content Container */}
+
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 sm:pt-32 sm:pb-32 pointer-events-none">
         <div className="max-w-4xl text-left min-h-[auto] sm:min-h-[80vh] flex flex-col justify-center pointer-events-auto">
           {/* Text Content */}
@@ -66,6 +67,14 @@ export function HeroSection() {
                 asChild
               >
                 <a href="/docs">Read the Docs</a>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-black/20 text-black hover:bg-black/5 px-8 h-12 rounded-none bg-transparent"
+                asChild
+              >
+                <a href="#use-cases">View Ecosystem</a>
               </Button>
             </div>
           </div>
