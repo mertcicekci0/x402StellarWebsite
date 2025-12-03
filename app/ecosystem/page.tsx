@@ -17,32 +17,14 @@ const categories = [
   "Facilitators"
 ]
 
-const projects = [
-  {
-    title: "1Shot API",
-    category: "Infrastructure & Tooling",
-    description: "A general purpose facilitator to monetize any n8n workflow with your favorite ERC-20 token.",
-    logo: "/code.png", // Using existing placeholder
-    link: "#",
-    color: "bg-cyan-50 text-cyan-700"
-  },
-  {
-    title: "402104",
-    category: "Infrastructure & Tooling",
-    description: "Generate expirable, paywalled links to private ANS-104 DataItems on Arweave. Compatible with both S3 and ANS-104 data standards.",
-    logo: "/locked.png", // Using existing placeholder
-    link: "#",
-    color: "bg-yellow-50 text-yellow-700"
-  },
-  {
-    title: "AEON",
-    category: "Services/Endpoints",
-    description: "The omnichain settlement layer that enables AI agents to seamlessly pay millions of real-world merchants across SEA, LATAM, and Africa – powered by x402 and USDC.",
-    logo: "/dollars.png", // Using existing placeholder
-    link: "#",
-    color: "bg-green-50 text-green-700"
-  }
-]
+const projects: {
+  title: string;
+  category: string;
+  description: string;
+  logo: string;
+  link: string;
+  color: string;
+}[] = []
 
 export default function EcosystemPage() {
   const [activeCategory, setActiveCategory] = useState("All Projects")
@@ -73,17 +55,7 @@ export default function EcosystemPage() {
           </p>
           
           <div className="pt-4">
-             <Button asChild className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-6">
-                <a 
-                  href="https://github.com/mertkaradayi/stellar-x402/issues/new?labels=ecosystem&template=project_submission.md" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2"
-                >
-                  <Plus className="w-4 h-4" />
-                  Submit your project
-                </a>
-             </Button>
+             {/* Submit project button removed as per request */}
           </div>
         </div>
 

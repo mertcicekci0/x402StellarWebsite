@@ -99,46 +99,46 @@ export function AnimatedTerminal({ onComplete }: AnimatedTerminalProps) {
   }, [])
 
   return (
-    <div className={`bg-black rounded-lg border border-gray-800 overflow-hidden font-mono shadow-2xl transition-all duration-700 ease-in-out ${
+    <div className={`bg-white rounded-xl border border-black/5 overflow-hidden font-mono shadow-xl transition-all duration-700 ease-in-out ${
       step === "complete" ? "scale-[1.01]" : "scale-100"
     }`}>
       {/* Terminal header */}
-      <div className="flex items-center gap-2 px-4 py-2.5 bg-[#1a1a1a] border-b border-gray-800">
+      <div className="flex items-center gap-2 px-4 py-3 bg-gray-50/80 border-b border-black/5 backdrop-blur-sm">
         <div className="flex gap-1.5">
-          <div className="w-3 h-3 rounded-full bg-red-500"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          <div className="w-3 h-3 rounded-full bg-gray-200"></div>
+          <div className="w-3 h-3 rounded-full bg-gray-200"></div>
+          <div className="w-3 h-3 rounded-full bg-gray-200"></div>
         </div>
-        <span className="ml-3 text-xs text-gray-500">terminal — zsh — 80x24</span>
+        <span className="ml-3 text-xs text-gray-400 font-medium">terminal — zsh</span>
       </div>
 
       {/* Terminal content */}
       <div 
         ref={terminalRef}
-        className={`p-6 text-sm overflow-y-auto transition-all duration-700 ease-in-out scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent ${
+        className={`p-6 text-sm overflow-y-auto transition-all duration-700 ease-in-out scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent ${
           step === "complete" ? "h-[450px]" : "h-[300px]"
         }`}
       >
         {/* Command 1 */}
         <div className="mb-4">
-          <div className="flex items-center gap-2">
-            <span className="text-[#d4a853]">➜</span>
-            <span className="text-cyan-400">~</span>
-            <span className="text-gray-300">{command1Text}</span>
+          <div className="flex items-center gap-2 text-gray-800">
+            <span className="text-gray-400">➜</span>
+            <span className="text-blue-500">~</span>
+            <span>{command1Text}</span>
             {step === "typing_1" && showCursor && (
-              <span className="inline-block w-2 h-4 bg-[#d4a853] animate-pulse"></span>
+              <span className="inline-block w-2 h-4 bg-gray-400 animate-pulse"></span>
             )}
           </div>
           
           {(step === "installing_1" || step === "complete_1" || step === "typing_2" || step === "installing_2" || step === "complete") && (
-            <div className="mt-2 text-xs text-gray-400 animate-fade-in">
+            <div className="mt-2 text-xs text-gray-500 animate-fade-in pl-5">
               {step === "installing_1" ? (
                 <span className="animate-pulse">⠋ Installing packages...</span>
               ) : (
                 <div className="space-y-1">
-                  <div className="text-green-400">✓ x402-stellar-fetch installed</div>
-                  <div className="text-green-400">✓ @stellar/stellar-sdk installed</div>
-                  <div className="text-gray-500">added 2 packages in 0.8s</div>
+                  <div className="text-green-600">✓ x402-stellar-fetch installed</div>
+                  <div className="text-green-600">✓ @stellar/stellar-sdk installed</div>
+                  <div className="text-gray-400">added 2 packages in 0.8s</div>
                 </div>
               )}
             </div>
@@ -148,49 +148,49 @@ export function AnimatedTerminal({ onComplete }: AnimatedTerminalProps) {
         {/* Command 2 */}
         {(step === "typing_2" || step === "installing_2" || step === "complete") && (
           <div className="mb-4 animate-fade-in">
-            <div className="flex items-center gap-2">
-              <span className="text-[#d4a853]">➜</span>
-              <span className="text-cyan-400">~</span>
-              <span className="text-gray-300">{command2Text}</span>
+            <div className="flex items-center gap-2 text-gray-800">
+              <span className="text-gray-400">➜</span>
+              <span className="text-blue-500">~</span>
+              <span>{command2Text}</span>
               {step === "typing_2" && showCursor && (
-                <span className="inline-block w-2 h-4 bg-[#d4a853] animate-pulse"></span>
+                <span className="inline-block w-2 h-4 bg-gray-400 animate-pulse"></span>
               )}
             </div>
 
             {(step === "installing_2" || step === "complete") && (
-              <div className="mt-2 text-xs text-gray-400">
+              <div className="mt-2 text-xs text-gray-500 pl-5">
                 {step === "installing_2" ? (
                   <span className="animate-pulse">⠙ Resolving dependencies...</span>
                 ) : (
                   <div className="animate-fade-in opacity-0" style={{ animation: 'fade-in 0.5s ease-out forwards' }}>
                     <pre className="whitespace-pre-wrap font-mono leading-relaxed">
-                      <span className="text-gray-400">  ╭─ Installing x402 Middleware ──────────────────────╮</span>
+                      <span className="text-gray-300">  ╭─ Installing x402 Middleware ──────────────────────╮</span>
                       <br />
-                      <span className="text-gray-400">  │                                                   │</span>
+                      <span className="text-gray-300">  │                                                   │</span>
                       <br />
-                      <span className="text-gray-400">  │ </span>
-                      <span className="text-green-400">✓</span>
-                      <span className="text-gray-300"> x402-stellar-express@0.1.0</span>
-                      <span className="text-gray-400">                   │</span>
+                      <span className="text-gray-300">  │ </span>
+                      <span className="text-green-600">✓</span>
+                      <span className="text-gray-600"> x402-stellar-express@0.1.0</span>
+                      <span className="text-gray-300">                   │</span>
                       <br />
-                      <span className="text-gray-400">  │ </span>
-                      <span className="text-green-400">✓</span>
-                      <span className="text-gray-300"> express@4.18.2</span>
-                      <span className="text-gray-400">                               │</span>
+                      <span className="text-gray-300">  │ </span>
+                      <span className="text-green-600">✓</span>
+                      <span className="text-gray-600"> express@4.18.2</span>
+                      <span className="text-gray-300">                               │</span>
                       <br />
-                      <span className="text-gray-400">  │                                                   │</span>
+                      <span className="text-gray-300">  │                                                   │</span>
                       <br />
-                      <span className="text-gray-400">  │ </span>
-                      <span className="text-gray-500">added 2 packages in 1.0s</span>
-                      <span className="text-gray-400">                          │</span>
+                      <span className="text-gray-300">  │ </span>
+                      <span className="text-gray-400">added 2 packages in 1.0s</span>
+                      <span className="text-gray-300">                          │</span>
                       <br />
-                      <span className="text-gray-400">  ╰───────────────────────────────────────────────────╯</span>
+                      <span className="text-gray-300">  ╰───────────────────────────────────────────────────╯</span>
                       <br /><br />
-                      <span className="text-[#d4a853]">  ✨</span>
-                      <span className="text-gray-300"> Stellar x402 Ecosystem ready!</span>
+                      <span className="text-yellow-500">  ✨</span>
+                      <span className="text-gray-800"> Stellar x402 Ecosystem ready!</span>
                       <br />
-                      <span className="text-gray-500">  ➜ Documentation: </span>
-                      <span className="text-blue-400 underline">http://localhost:3000/docs</span>
+                      <span className="text-gray-400">  ➜ Documentation: </span>
+                      <span className="text-blue-500 underline">http://localhost:3000/docs</span>
                     </pre>
                   </div>
                 )}
@@ -201,11 +201,11 @@ export function AnimatedTerminal({ onComplete }: AnimatedTerminalProps) {
 
         {/* Final cursor */}
         {step === "complete" && (
-          <div className="flex items-center gap-2">
-            <span className="text-[#d4a853]">➜</span>
-            <span className="text-cyan-400">~</span>
+          <div className="flex items-center gap-2 text-gray-800">
+            <span className="text-gray-400">➜</span>
+            <span className="text-blue-500">~</span>
             {showCursor && (
-              <span className="inline-block w-2 h-4 bg-[#d4a853] animate-pulse"></span>
+              <span className="inline-block w-2 h-4 bg-gray-400 animate-pulse"></span>
             )}
           </div>
         )}
