@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Search } from "lucide-react"
+import { ExternalLink, Search, Plus } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -24,7 +24,7 @@ const projects = [
     description: "A general purpose facilitator to monetize any n8n workflow with your favorite ERC-20 token.",
     logo: "/code.png", // Using existing placeholder
     link: "#",
-    color: "bg-cyan-500/20 text-cyan-400"
+    color: "bg-cyan-50 text-cyan-700"
   },
   {
     title: "402104",
@@ -32,7 +32,7 @@ const projects = [
     description: "Generate expirable, paywalled links to private ANS-104 DataItems on Arweave. Compatible with both S3 and ANS-104 data standards.",
     logo: "/locked.png", // Using existing placeholder
     link: "#",
-    color: "bg-yellow-500/20 text-yellow-400"
+    color: "bg-yellow-50 text-yellow-700"
   },
   {
     title: "AEON",
@@ -40,7 +40,7 @@ const projects = [
     description: "The omnichain settlement layer that enables AI agents to seamlessly pay millions of real-world merchants across SEA, LATAM, and Africa – powered by x402 and USDC.",
     logo: "/dollars.png", // Using existing placeholder
     link: "#",
-    color: "bg-green-500/20 text-green-400"
+    color: "bg-green-50 text-green-700"
   }
 ]
 
@@ -56,18 +56,35 @@ export default function EcosystemPage() {
   })
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-white text-black">
       <Header />
       
       <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16 space-y-6">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-            Explore the <span className="text-blue-400">x402 Ecosystem</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/5 border border-black/10 mb-4">
+             <span className="text-xs font-medium text-black">Ecosystem</span>
+          </div>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-black">
+            Explore the <span className="text-[#d4a853]">x402 Ecosystem</span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Discover innovative projects, tools, and applications built by our growing community of partners and developers leveraging x402 technology.
           </p>
+          
+          <div className="pt-4">
+             <Button asChild className="bg-black text-white hover:bg-black/90 rounded-full px-8 py-6">
+                <a 
+                  href="https://github.com/mertkaradayi/stellar-x402/issues/new?labels=ecosystem&template=project_submission.md" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  Submit your project
+                </a>
+             </Button>
+          </div>
         </div>
 
         {/* Filter & Search */}
@@ -77,10 +94,10 @@ export default function EcosystemPage() {
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                   activeCategory === category
-                    ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25"
-                    : "bg-slate-800/50 text-gray-400 hover:bg-slate-800 hover:text-white border border-white/5"
+                    ? "bg-black text-white shadow-lg shadow-black/20 scale-105"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-black"
                 }`}
               >
                 {category}
@@ -88,33 +105,27 @@ export default function EcosystemPage() {
             ))}
           </div>
           
-          <div className="max-w-md mx-auto relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
+          <div className="max-w-md mx-auto relative group">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 group-focus-within:text-black transition-colors" />
             <input
               type="text"
               placeholder="Search projects..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-full text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black/20 transition-all"
             />
           </div>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, index) => (
             <div 
               key={index}
-              className="group bg-slate-900/50 border border-white/5 rounded-2xl p-6 hover:border-blue-500/30 transition-all hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1"
+              className="group bg-white border border-black/5 rounded-3xl p-8 hover:border-black/10 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="mb-4">
-                <span className="text-xs font-medium text-gray-500 bg-slate-800 px-2 py-1 rounded-md">
-                  {project.category}
-                </span>
-              </div>
-              
-              <div className="flex items-center gap-4 mb-4">
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${project.color}`}>
+              <div className="mb-6 flex items-start justify-between">
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${project.color} mb-4`}>
                   <div className="relative w-8 h-8">
                     <Image
                       src={project.logo}
@@ -124,12 +135,16 @@ export default function EcosystemPage() {
                     />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
-                  {project.title}
-                </h3>
+                <span className="text-[10px] font-bold tracking-wider uppercase text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full border border-black/5">
+                  {project.category}
+                </span>
               </div>
               
-              <p className="text-gray-400 text-sm leading-relaxed mb-6 h-20 overflow-hidden">
+              <h3 className="text-2xl font-bold text-black mb-3 group-hover:text-[#d4a853] transition-colors">
+                {project.title}
+              </h3>
+              
+              <p className="text-gray-600 text-sm leading-relaxed mb-8 h-20 overflow-hidden">
                 {project.description}
               </p>
               
@@ -137,7 +152,7 @@ export default function EcosystemPage() {
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-bold text-black hover:text-[#d4a853] transition-colors border-b border-black/10 pb-0.5 hover:border-[#d4a853]"
               >
                 Visit website <ExternalLink className="h-3 w-3" />
               </a>
@@ -146,8 +161,14 @@ export default function EcosystemPage() {
         </div>
         
         {filteredProjects.length === 0 && (
-          <div className="text-center py-20 text-gray-500">
-            No projects found matching your criteria.
+          <div className="text-center py-24 bg-gray-50 rounded-3xl border border-dashed border-gray-200">
+            <div className="text-gray-400 mb-2">No projects found matching your criteria.</div>
+            <button 
+              onClick={() => {setActiveCategory("All Projects"); setSearchQuery("")}}
+              className="text-black font-medium hover:underline"
+            >
+              Clear filters
+            </button>
           </div>
         )}
       </main>
@@ -156,4 +177,3 @@ export default function EcosystemPage() {
     </div>
   )
 }
-
