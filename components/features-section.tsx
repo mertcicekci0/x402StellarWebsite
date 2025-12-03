@@ -28,8 +28,8 @@ export function FeaturesSection() {
         <div className="grid md:grid-cols-2 gap-8 h-[500px]">
           
           {/* Feature 1: Quick Start */}
-          <div className="group relative bg-white rounded-2xl p-2 border border-black/5 shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col">
-            <div className="bg-[#F8F9FA] rounded-xl overflow-hidden mb-6 relative flex-grow">
+          <div className="group relative bg-white rounded-2xl p-2 border border-black/5 shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col min-w-0">
+            <div className="bg-[#F8F9FA] rounded-xl overflow-hidden mb-6 relative flex-grow min-h-[300px]">
                <IDEWindow 
                  tabs={["app.ts", "client.tsx"]}
                  activeTab={activeTab1} 
@@ -83,8 +83,8 @@ export function FeaturesSection() {
               </div>
               
           {/* Feature 2: Full Configuration */}
-          <div className="group relative bg-white rounded-2xl p-2 border border-black/5 shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col">
-            <div className="bg-[#F8F9FA] rounded-xl overflow-hidden mb-6 relative flex-grow">
+          <div className="group relative bg-white rounded-2xl p-2 border border-black/5 shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col min-w-0">
+            <div className="bg-[#F8F9FA] rounded-xl overflow-hidden mb-6 relative flex-grow min-h-[300px]">
                <IDEWindow 
                  tabs={["config.ts", "assets.ts"]}
                  activeTab={activeTab2}

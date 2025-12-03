@@ -43,35 +43,35 @@ export function HeroSection() {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-start gap-4 pt-2">
+            <div className="flex flex-col items-start gap-4 pt-2 w-full sm:w-auto sm:flex-row">
               <Button
                 size="lg"
                 asChild
-                className="bg-black hover:bg-gray-800 text-white font-medium px-8 h-14 rounded-full text-base transition-all hover:scale-105 hover:shadow-lg"
+                className="w-full sm:w-auto bg-black hover:bg-gray-800 text-white font-medium px-8 h-14 rounded-full text-base transition-all hover:scale-105 hover:shadow-lg"
               >
                 <a href="https://stellar-x402-examples-server-example-production.up.railway.app/" target="_blank" rel="noopener noreferrer">
                   Try it Out
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
-              <div className="flex gap-4">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-gray-200 text-black hover:bg-gray-50 hover:border-gray-300 px-8 h-14 rounded-full text-base bg-white transition-all"
-                  asChild
-                >
-                  <a href="/docs">Read the Docs</a>
-                </Button>
-                <Button
-                  size="lg"
-                  variant="ghost"
-                  className="text-gray-600 hover:text-black hover:bg-transparent px-6 h-14 rounded-full text-base"
-                  asChild
-                >
-                  <Link href="/ecosystem">View Ecosystem</Link>
-                </Button>
-              </div>
+              
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-auto border-gray-200 text-black hover:bg-gray-50 hover:border-gray-300 px-8 h-14 rounded-full text-base bg-white transition-all"
+                asChild
+              >
+                <a href="/docs">Read the Docs</a>
+              </Button>
+              
+              <Button
+                size="lg"
+                variant="ghost"
+                className="w-full sm:w-auto text-gray-600 hover:text-black hover:bg-transparent px-6 h-14 rounded-full text-base"
+                asChild
+              >
+                <Link href="/ecosystem">View Ecosystem</Link>
+              </Button>
             </div>
           </div>
         </div>
